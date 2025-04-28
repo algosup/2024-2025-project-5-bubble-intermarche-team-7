@@ -1,0 +1,18 @@
+# VS Code
+.vscode/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.swp
+*~
+~$*
+
+# Dossiers de génération éventuels
+build/
+dist/
+out/
