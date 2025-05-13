@@ -3,6 +3,8 @@ description: "Describe a new task for the Intermarché Wine & Cheese project"
 title: "[TASK] "
 labels:
   - task
+assignees: []      # ← this makes GitHub show the dynamic Assignees picker
+
 body:
   - type: markdown
     attributes:
@@ -14,22 +16,7 @@ body:
     attributes:
       label: "Task Title"
       description: "As a…, I want…, so that…"
-      placeholder: "e.g. As a user, I want to search by dish so that I can find pairings"
-
-  - type: dropdown
-    id: owner
-    attributes:
-      label: "Owner"
-      description: "Who is responsible for this task?"
-      options:
-        - "Abderrazaq"
-        - "Quentin"
-        - "Pierre"
-        - "Evan"
-        - "David"
-        - "Manech"
-    validations:
-      required: true
+      placeholder: "e.g. As a user, I want to search by dish..."
 
   - type: input
     id: estimate_hours
@@ -49,7 +36,6 @@ body:
         - "S2"
         - "S3"
         - "S4"
-        - "S5"
     validations:
       required: true
 
@@ -87,7 +73,7 @@ body:
     id: acceptance_criteria
     attributes:
       label: "Acceptance Criteria"
-      description: "Use markdown checklist format"
+      description: "Use markdown checklist"
       placeholder: |
         - [ ] Criterion 1  
         - [ ] Criterion 2  
