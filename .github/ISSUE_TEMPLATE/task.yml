@@ -1,85 +1,82 @@
 name: "📝 Task"
-description: "Create a new task for the project"
-title: ""
+description: "Create a new task for the Intermarché Wine & Cheese project"
+title: "[TASK] "
 labels:
   - task
 body:
   - type: markdown
     attributes:
       value: |
-        Please fill out all fields below to describe the work to be done.
-  - id: title
-    type: input
+        Please fill out the fields below to describe the work to be done.
+  - type: input
+    id: title
     attributes:
-      label: "Title"
+      label: "Task Title"
       description: "As a…, I want…, so that…"
-      placeholder: "e.g. As a user, I want to search by dish so that I can find suitable pairings"
+      placeholder: "e.g. As a user, I want to search by dish so that I can find pairings"
       required: true
-  - id: owner
-    type: dropdown
+  - type: dropdown
+    id: owner
     attributes:
       label: "Owner"
       description: "Who is responsible for this task?"
       options:
-        - Abderrazaq
-        - Quentin
-        - Pierre
-        - Evan
-        - David
-        - Manech
+        - "Abderrazaq"
+        - "Quentin"
+        - "Pierre"
+        - "Evan"
+        - "David"
+        - "Manech"
       required: true
-  - id: estimate
-    type: number
+  - type: number
+    id: estimate
     attributes:
-      label: "Estimate (h)"
-      description: "How many hours do you estimate for this task?"
+      label: "Estimate (hours)"
+      description: "Rough estimate of effort in hours"
       placeholder: "e.g. 8"
-  - id: sprint
-    type: dropdown
+  - type: dropdown
+    id: sprint
     attributes:
       label: "Sprint"
-      description: "Which sprint does this belong to?"
       options:
-        - S1
-        - S2
-        - S3
-        - S4
-        - S5
+        - "S1"
+        - "S2"
+        - "S3"
+        - "S4"
+        - "S5"
       required: true
-  - id: milestone
-    type: dropdown
+  - type: dropdown
+    id: milestone
     attributes:
       label: "Milestone"
-      description: "Which milestone?"
       options:
-        - Functional Spec
-        - Technical Spec
-        - Test Plan
-        - MVP Bubble
-        - Final Delivery
-        - Final Presentation
-      required: true
-  - id: priority
-    type: dropdown
+        - "Functional Spec"
+        - "Technical Spec"
+        - "Test Plan"
+        - "MVP Bubble"
+        - "Final Delivery"
+        - "Final Presentation"
+  - type: dropdown
+    id: priority
     attributes:
       label: "Priority"
       options:
-        - High
-        - Medium
-        - Low
+        - "High"
+        - "Medium"
+        - "Low"
       required: true
-  - id: description
-    type: textarea
+  - type: textarea
+    id: description
     attributes:
       label: "Description"
       description: "Detailed description of what needs to be done"
-      placeholder: "More details here..."
-  - id: acceptance_criteria
-    type: textarea
+      placeholder: "Enter task details here…"
+  - type: textarea
+    id: acceptance_criteria
     attributes:
       label: "Acceptance Criteria"
-      description: "Please use markdown checklist items, e.g.: `- [ ]`"
+      description: "Use markdown checklist format"
       placeholder: |
-        - [ ] Criterion 1
-        - [ ] Criterion 2
-        - [ ] Criterion 3
+        - [ ] Criterion 1  
+        - [ ] Criterion 2  
+        - [ ] Criterion 3  
