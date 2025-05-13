@@ -1,0 +1,85 @@
+name: "📝 Task"
+description: "Create a new task for the project"
+title: ""
+labels:
+  - task
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out all fields below to describe the work to be done.
+  - id: title
+    type: input
+    attributes:
+      label: "Title"
+      description: "As a…, I want…, so that…"
+      placeholder: "e.g. As a user, I want to search by dish so that I can find suitable pairings"
+      required: true
+  - id: owner
+    type: dropdown
+    attributes:
+      label: "Owner"
+      description: "Who is responsible for this task?"
+      options:
+        - Abderrazaq
+        - Quentin
+        - Pierre
+        - Evan
+        - David
+        - Manech
+      required: true
+  - id: estimate
+    type: number
+    attributes:
+      label: "Estimate (h)"
+      description: "How many hours do you estimate for this task?"
+      placeholder: "e.g. 8"
+  - id: sprint
+    type: dropdown
+    attributes:
+      label: "Sprint"
+      description: "Which sprint does this belong to?"
+      options:
+        - S1
+        - S2
+        - S3
+        - S4
+        - S5
+      required: true
+  - id: milestone
+    type: dropdown
+    attributes:
+      label: "Milestone"
+      description: "Which milestone?"
+      options:
+        - Functional Spec
+        - Technical Spec
+        - Test Plan
+        - MVP Bubble
+        - Final Delivery
+        - Final Presentation
+      required: true
+  - id: priority
+    type: dropdown
+    attributes:
+      label: "Priority"
+      options:
+        - High
+        - Medium
+        - Low
+      required: true
+  - id: description
+    type: textarea
+    attributes:
+      label: "Description"
+      description: "Detailed description of what needs to be done"
+      placeholder: "More details here..."
+  - id: acceptance_criteria
+    type: textarea
+    attributes:
+      label: "Acceptance Criteria"
+      description: "Please use markdown checklist items, e.g.: `- [ ]`"
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
