@@ -8,18 +8,25 @@ body:
     attributes:
       value: |
         Please fill out the fields below to describe the work to be done.
+
   - type: input
     id: title
     attributes:
       label: "Task Title"
       description: "As a…, I want…, so that…"
       placeholder: "e.g. As a user, I want to search by dish so that I can find pairings"
+  - type: input
+    id: owner
+    attributes:
+      label: "Owner"
+      description: "Who is responsible for this task?"
+      placeholder: "Select from dropdown"
+    validations:
       required: true
   - type: dropdown
     id: owner
     attributes:
       label: "Owner"
-      description: "Who is responsible for this task?"
       options:
         - "Abderrazaq"
         - "Quentin"
@@ -27,13 +34,14 @@ body:
         - "Evan"
         - "David"
         - "Manech"
-      required: true
-  - type: number
+  - type: input
     id: estimate
     attributes:
       label: "Estimate (hours)"
       description: "Rough estimate of effort in hours"
       placeholder: "e.g. 8"
+      format: number
+
   - type: dropdown
     id: sprint
     attributes:
@@ -44,7 +52,9 @@ body:
         - "S3"
         - "S4"
         - "S5"
+    validations:
       required: true
+
   - type: dropdown
     id: milestone
     attributes:
@@ -56,6 +66,7 @@ body:
         - "MVP Bubble"
         - "Final Delivery"
         - "Final Presentation"
+
   - type: dropdown
     id: priority
     attributes:
@@ -64,13 +75,16 @@ body:
         - "High"
         - "Medium"
         - "Low"
+    validations:
       required: true
+
   - type: textarea
     id: description
     attributes:
       label: "Description"
       description: "Detailed description of what needs to be done"
       placeholder: "Enter task details here…"
+
   - type: textarea
     id: acceptance_criteria
     attributes:
