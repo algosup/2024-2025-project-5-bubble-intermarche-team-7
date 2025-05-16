@@ -11,12 +11,10 @@ Created by: Quentin CLÉMENT <br> Creation Date: 30/04/2025 <br> Last Update: 16
 
 </summary>
 
-- [Table of Contents](#table-of-contents)
 - [1. Introduction](#1-introduction)
   - [1.1 Purpose of the Document](#11-purpose-of-the-document)
   - [1.2 Intended Audience](#12-intended-audience)
   - [1.3 Scope of the Application](#13-scope-of-the-application)
-  - [1.4 Definitions and Acronyms](#14-definitions-and-acronyms)
 - [2. Overall Description](#2-overall-description)
   - [2.1 Product Perspective](#21-product-perspective)
   - [2.2 Product Functions Summary](#22-product-functions-summary)
@@ -29,24 +27,24 @@ Created by: Quentin CLÉMENT <br> Creation Date: 30/04/2025 <br> Last Update: 16
     - [3.3 Base Use Case: User Selects from Favorites](#33-base-use-case-user-selects-from-favorites)
     - [3.4 Contextual Differences](#34-contextual-differences)
 - [4. Functional Requirements](#4-functional-requirements)
-    - [4.1 Offline Functionality](#41-offline-functionality)
-    - [4.2 Favorites System](#42-favorites-system)
-    - [4.3 Navigation Structure](#43-navigation-structure)
-    - [4.4 Search Logic](#44-search-logic)
-    - [4.5 Performance Assumptions](#45-performance-assumptions)
-    - [4.6 Localization / Multilingual Support](#46-localization--multilingual-support)
-    - [4.7 Caching and Data Persistence](#47-caching-and-data-persistence)
-    - [4.8 First-Time User Experience](#48-first-time-user-experience)
-    - [4.9 Error and Empty State Handling](#49-error-and-empty-state-handling)
-    - [4.10 First-Time User Experience](#410-first-time-user-experience)
+  - [4.1 Offline Functionality](#41-offline-functionality)
+  - [4.2 Favorites System](#42-favorites-system)
+  - [4.3 Navigation Structure](#43-navigation-structure)
+  - [4.4 Search Logic](#44-search-logic)
+  - [4.5 Filtering by Allergies and Dietary Restrictions](#45-filtering-by-allergies-and-dietary-restrictions)
+  - [4.6 Performance Assumptions](#46-performance-assumptions)
+  - [4.7 Localization / Multilingual Support](#47-localization--multilingual-support)
+  - [4.8 Caching and Data Persistence](#48-caching-and-data-persistence)
+  - [4.9 First-Time User Experience](#49-first-time-user-experience)
+  - [4.10 Error and Empty State Handling](#410-error-and-empty-state-handling)
 - [5. Page-by-Page Description](#5-page-by-page-description)
-    - [5.1 Navigation Bar](#51-navigation-bar)
-    - [5.2 Homepage](#52-homepage)
-    - [5.3 Recipe List Screen](#53-recipe-list-screen)
-    - [5.4 Meal or Ingredient Screen](#54-meal-or-ingredient-screen)
-    - [5.5 Product Detail Page](#55-product-detail-page)
-    - [5.6 Favorites Page](#56-favorites-page)
-    - [5.7 Profile Page](#57-profile-page)
+  - [5.1 Navigation Bar](#51-navigation-bar)
+  - [5.2 Homepage](#52-homepage)
+  - [5.3 Recipe List Screen](#53-recipe-list-screen)
+  - [5.4 Meal or Ingredient Screen](#54-meal-or-ingredient-screen)
+  - [5.5 Product Detail Page](#55-product-detail-page)
+  - [5.6 Favorites Page](#56-favorites-page)
+  - [5.7 Profile Page](#57-profile-page)
 
 </details>
 
@@ -60,8 +58,6 @@ The target audience for this spec are the developers, testers and documenters of
 
 ### 1.3 Scope of the Project  
 The scope of the project is to design and develop the front-end of Intermarché’s wine and cheese recommendation application. The objective is to support the supermarket’s business strategy by fostering customer engagement and loyalty, while increasing the average basket size and overall profitability.
-
-### 1.4 Definitions and Acronyms
 
 ---
 
@@ -100,7 +96,7 @@ The development and successful operation of the application are based on the fol
 - Availability of brand assets and design guidelines from Intermarché to ensure compliance with the graphic charter.
 - Data privacy and legal compliance (e.g., GDPR) must be ensured through client-provided guidelines or internal policy support.
 
-## 2.5 Design and Implementation Constraints
+### 2.5 Design and Implementation Constraints
 
 - **Platform and Technology Stack**: The application must be compatible with both Android and iOS devices. It will be developed using Bubble.io, a no-code platform that supports cross-platform deployment. The app must offer a consistent and responsive user experience across supported devices.
 - **Device Compatibility**: The application must perform efficiently on mid-range smartphones commonly used by the target audience. It should support older operating systems, with a minimum requirement of Android 5.0 and iOS 12.0. Responsive design principles must be applied to accommodate varying screen sizes and resolutions.
@@ -232,7 +228,19 @@ Due to offline usage considerations and storage limitations, only a subset of da
 
 ---
 
-### 4.7 Performance Assumptions  
+### 4.5 Filtering by Allergies and Dietary Restrictions
+
+The application allows users to define personal dietary restrictions and allergies via the **Profile Page**. These preferences directly impact the wine and cheese recommendations shown throughout the app.
+
+#### Impact on Displayed Results:
+- When the user has defined one or more dietary restrictions (e.g., vegetarian) or allergies (e.g., lactose, nuts), the app will:
+  - **Filter out** any products that conflict with those restrictions from all recommendation lists.
+  - Display only products that are compliant with the selected preferences.
+  - If a recommendation set contains fewer than three matching products (e.g., only one vegetarian cheese is available for a meal), the app will show only the compliant options.
+
+---
+
+### 4.6 Performance Assumptions  
 
 - The app is expected to load the homepage in under **2 seconds** on a 4G connection.
 - Navigating between screens (e.g., homepage → search results → product detail) should be done in under **1 second** to make sure the user doesn't feel like the app is lagging.
@@ -240,7 +248,7 @@ Due to offline usage considerations and storage limitations, only a subset of da
 
 ---
 
-### 4.8 Localization / Multilingual Support  
+### 4.7 Localization / Multilingual Support  
 
 - The initial version will be in **French only**, matching the target audience of the Saint-Rémy-de-Provence store. It time allows it, the app will be available in **English** as well.
 - The application architecture should allow for easy future translation into other languages (e.g., use of string tables, no hardcoded text).
@@ -248,7 +256,7 @@ Due to offline usage considerations and storage limitations, only a subset of da
 
 ---
 
-### 4.9 Caching and Data Persistence
+### 4.8 Caching and Data Persistence
 
 - The app will fetch updated product data (e.g., pricing, descriptions, availability) from the database **each time the app is launched**, provided there is an internet connection.
 - **User settings** (dietary restrictions, allergies, language preference, and budget range) will be stored **locally** and persist as long as the app remains installed on the device.
@@ -259,11 +267,19 @@ Due to offline usage considerations and storage limitations, only a subset of da
 
 ---
 
-### 4.10 First-Time User Experience
+### 4.9 First-Time User Experience
+The first time the user opens the app, they will be guided through a series of onboarding screens to set up their profile and preferences. This includes:
+- **A welcome screen** introducing the app's and allowing to choose between **French** and **English**.
+- **Dietary restrictions**: Users can select allergies and dietary preferences (e.g., vegetarian).
+- **Budget range**: Users can set a minimum and maximum price for recommendations.
+
+For more details, please refer to the [mockups](https://www.figma.com/design/RO0qGCWbS70Pyk50Tr62kS/Intermarche?node-id=0-1&t=s948BG6soiRFNpt3-1).
+
+All those pieces of information will be stored locally and used to filter recommendations. Users can modify their preferences later in the profile settings.
 
 ---
 
-### 4.11 Error and Empty State Handling
+### 4.10 Error and Empty State Handling
 
 The application must handle errors gracefully and provide clear feedback to users across all states:
 
@@ -294,9 +310,9 @@ The application must handle errors gracefully and provide clear feedback to user
 
 ## 5. Page-by-Page Description
 
-A mockup has been created for each page of the application. The following sections describe the purpose of each page, its components, and the expected user interactions. When it comes to design details, the [mockups](https://www.figma.com/proto/RO0qGCWbS70Pyk50Tr62kS/Intermarche?node-id=1-2&p=f&t=wTVW9SEC38yfSACm-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2) are the reference. The following sections will only describe the main components and their expected behavior.
+A mockup has been created for each page of the application. The following sections describe the purpose of each page, its components, and the expected user interactions. When it comes to design details, the [mockups](https://www.figma.com/design/RO0qGCWbS70Pyk50Tr62kS/Intermarche?node-id=0-1&t=s948BG6soiRFNpt3-1) are the reference. The following sections will only describe the main components and their expected behavior.
 
-Please refer to the [mockups](https://www.figma.com/proto/RO0qGCWbS70Pyk50Tr62kS/Intermarche?node-id=1-2&p=f&t=wTVW9SEC38yfSACm-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2) for a visual representation of the design and layout.
+Please refer to the [mockups](https://www.figma.com/design/RO0qGCWbS70Pyk50Tr62kS/Intermarche?node-id=0-1&t=s948BG6soiRFNpt3-1) for a visual representation of the design and layout.
 
 ### 5.1 Navigation Bar
 - **Purpose**: The navigation bar provides quick access to the main sections of the app: homepage, favorites, and profile.
@@ -387,4 +403,3 @@ Please refer to the [mockups](https://www.figma.com/proto/RO0qGCWbS70Pyk50Tr62kS
   - Tapping the dietary restrictions or allergy list allows users to select or deselect options.
   - Tapping the budget range allows users to set a minimum and maximum price.
   - Tapping the language selection allows users to choose between French and English.
-
