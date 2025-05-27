@@ -6,14 +6,55 @@ This project was commissioned by the Intermarché of Saint-Rémy-de-Provence. Th
 
 ---
 
-### Technical Overview
+## Technical Overview
+
+
+### Requirements
 
 
 
 
+## Bubble Implementation
 
+### Pages 
+The application will be structured across several pages to improve performance and simplify team collaboration. Each of them will focus on a different task or user goal, which will help for clarity. 
 
+The planned pages include:
 
+- `index`: Homepage where users are welcomed and guided to begin the process. It contains the primary entry point for selecting a dish and starting the recommendation flow.
+- `dish_lists`: Displays wine and cheese suggestions, grouped by category.
+- `recommendation`: Shows detailed product matches for the selected dish.
+- `favorite`: Lets users view and manage the products they labelled as favorite.
+- `profile`: Allows users to update preferences such as dietary restrictions, allergies, and language.
+- `onboarding`: Guides new users through initial preference setup.
+- `reset_pw`: For password recovery and reset.
+
+---
+
+### Reusable Elements
+
+To keep the project modular and easy to maintain, several repeating parts of the UI will be built as reusable elements. These components will be used across multiple pages to ensure consistency and avoid duplicating logic or design. They’ll handle features such as navigations bars, cheese and wine cards and product details. 
+
+---
+
+### Workflows (?)
+
+---
+
+### Custom States (?)
+
+---
+
+### Data Types (?)
+
+---
+
+### Styles
+
+To ensure consistency and maintanability in the design, all UI components will be styled using Bubble's built-in Styles page.  
+No inline styles will be used unless required for dynamic conditional logic.
+
+---
 
 
 technical requirements -> how will it be done: 
@@ -111,13 +152,8 @@ The goal is to avoid vague names such as `workflow1` or `popupLogic`.
 
 ---
 
-work is done on several pages to simplify workload
-define styles.. 
-worfklow names, state names,
 
-search feature, onboarding feature, profil page missing
 
-name of the element_function (+ number if necessary) ex: button_popup_2 or groupe_mailinput (to develop)
 
 
 data type example:
