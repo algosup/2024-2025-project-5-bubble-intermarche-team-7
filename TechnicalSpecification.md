@@ -8,15 +8,9 @@ This project was commissioned by the Intermarché of Saint-Rémy-de-Provence. Th
 
 ## Technical Overview
 
-
-### Requirements
-
-<!-- The app will be built entirely using Bubble and will rely on its no-code visual tools to deliver all the expected features.  -->
-
 Search, filters, and dynamic recommendations will be handled through a combination of search boxes, dropdowns, and custom states. Repeating groups will be used to display filtered lists of products based on user input and preferences. Option sets will be used for tags like allergies, dietary restrictions, or taste profiles, which makes filtering both more reliable and easier to update. Reusable elements will be used for anything that appears across several pages, like navigation bars or product cards, to keep things clean and consistent.
 
-
-
+---
 
 ## Bubble Implementation
 
@@ -29,8 +23,8 @@ The planned pages include:
 - `dish_lists`: Displays wine and cheese suggestions, grouped by category.
 - `favorite`: Lets users view and manage the products they labelled as favorite.
 - `profile`: Allows users to update preferences such as dietary restrictions, allergies, and language.
-- `onboarding`: Guides new users through initial preference setup.
-- `404`: This page will appear if the user tries to go to an unexisting page or destination. (cleaner version needed)
+- `onboarding`: Guides new users through initial preferences setup.
+- `404`: This page will appear if the user tries to go to an unexisting page or destination.
 
 ---
 
@@ -45,23 +39,89 @@ To keep the project modular and easy to maintain, several repeating parts of the
 Workflows will handle all user interactions and app logic such as navigation, filtering, or showing/hiding elements. Each workflow must follow the naming convention. Complex logic must be broken down into multiple workflows when necessary, to keep everything clear and easy to debug.
 
 ---
-
-### Custom States
-
-Custom states will be used to store temporary values that do not need to be saved to the database, which will be ideal for controlling UI behavior such as toggling elements or, tracking selected filters.  They also should be added directly to the element they control, rather than to the page or unrelated containers. This keeps the logic easy to understand, limits unwanted side effects, and makes future changes easier.
----
-
+ 
 ### Styles
 
 To ensure consistency and maintanability in the design, all UI components will be styled using Bubble's built-in Styles page. No inline styles will be used unless required for dynamic conditional logic. This will allow us to (if needed) update the entire app theme from one place.
 
 ---
 
-### Data Base Structure
+### Custom States
+
+Custom states will be used to store temporary values that do not need to be saved to the database, which will be ideal for controlling UI behavior such as toggling elements or, tracking selected filters.  They also should be added directly to the element they control, rather than to the page or unrelated containers. This keeps the logic easy to understand, limits unwanted side effects, and makes future changes easier.
+
+---
+
+### Product Display (Cards)
+
+Wine, cheese, and dish products are displayed using three dedicated Reusable Elements: `wineCards`, `cheeseCards`, and `dishRowCards`. Each of them contains a repeating group sorted by product type, with a consistent card layout showing relevant product details.
+
+---
+
+#### Wine Card
+
+| **Property**               | Dynamic Source                                                                 | Style / Settings                                                     |
+|------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| **Card dimensions**    | 145 × 330 px                                                                    | Min-width 145px / Max-width 185px<br>Min-height 0 / Max-height 330 px  |
+| **Responsive widths**  | `<768px` → 140px  | `≤992px` → 215px  | `>992px` → 210px                                   |
+| **Product image**      | `Parent group's Product's image`                                               | 65 × 205 px, Zoom rendering                                          |
+| **Year**               | `Parent group's Product's year`                                                | Arial 12px, weight 400                                                |
+| **Name**               | `Parent group's Product's name`                                                | Montserrat 16px, weight 800, color `#231918`                          |
+| **Technical details**  | `origin`, `wine_type`, `volume_or_weight`, `price_per_liter_or_kg` (rich text) | Arial 12px, weight 400, color `#231918`, line-spacing 1.4             |
+| **Price**              | `Parent group's Product's price`                                               | Montserrat 26px, weight 800                                           |
+| **Favorite icon**      | Two overlapping MaterialIcons (35 × 35 px)                                     | Bottom-right (absolute position)                                     |
+| • `favorite_outline`   | Visible when Current User’s `favorites` **does not** contain the product       | on-click → “Add to favorites”                                        |
+| • `favorite`           | Visible when Current User’s `favorites` **does** contain the product           | on-click → “Remove from favorites”                                   |
+
+---
+
+#### Cheese Card
+
+| **Property**                | Dynamic Source                                             | Style / Settings                     |
+|-------------------------|-------------------------------------------------------------|---------------------------------------|
+| **Card dimensions**     | 230 × 305 px                                                | Fixed width & height                  |
+| **Product image**       | `Parent group's Product's image`                           | Aspect-fit                            |
+| **Label badges**        | RepeatingGroup on `List of Tags` (e.g. Local, blue cheese) | Inline-flex badges, margin-right 4px  |
+| **Name**                | `Parent group's Product's name`                            | Montserrat 16px, weight 800           |
+| **Description**         | `Parent group's Product's description`                     | Arial 12px, weight 400, color #231918 |
+| **Weight & unit price** | `volume_or_weight` + `" | "` + `price_per_liter_or_kg`      | Arial 12px, weight 400                |
+| **Price**               | `Parent group's Product's price`                           | Montserrat 26px, weight 800           |
+| **Favorite icon**       | Same logic as Wine                                          | 35 × 35 px, bottom-right              |
+
+---
+
+#### Dish Card
+
+| Property               | Dynamic Source                          | Style / Settings               |
+|------------------------|------------------------------------------|--------------------------------|
+| **Card dimensions**    | 135 × 290 px                             | Fixed width & height           |
+| **Product image**      | `Parent group's Product's image`        | Cover, full-width              |
+| **Dish name**          | `Parent group's Product's name`         | Montserrat 16px, weight 800    |
+| **Favorite icon**      | Same logic as Wine & Cheese             | 35 × 35 px, bottom-right       |
+
+---
+
+#### Favorites Logic
+
+This will be shared across all the cards
+
+- **Add to favorites**:  
+  Trigger → icon `favorite_outline`  
+  Action → “Make changes to Current User” → `favorites add Current cell's Product`
+
+- **Remove from favorites**:  
+  Trigger → icon `favorite`  
+  Action → “Make changes to Current User” → `favorites remove Current cell's Product`
+
+---
+
+## Data Base Structure
 
 The app will use a structured data model to store and manage the different types of products (dishes, wines, cheeses), as well as user preferences. The database will be designed to allow fast filtering, personalized suggestions, and compatibility with features such as favorites, allergy filters, or local product highlighting.
 
-#### Products 
+---
+
+### Products 
 
 This type will be used for every physical product — dish, wine, or cheese — displayed in the app. Each entry will include product metadata, pricing, origin, tags for filtering, and store-related info.
 
@@ -84,7 +144,7 @@ This type will be used for every physical product — dish, wine, or cheese — 
 - `wine_year` Year of wine production (empty for cheeses). 
 ---
 
-#### User
+### User
 
 Stores user preferences for language, budget, dietary restrictions, and favorites.
 
@@ -101,23 +161,14 @@ Stores user preferences for language, budget, dietary restrictions, and favorite
 
 --- 
 
-
-
-
-
-
-
-diagrams missing (flow charts)
-
 ## Conventions
 
 ### On GitHub
  
 - All files and folders should be named in PascalCase.
-- Technical, Functional and Management documentation should be in their own folder in a ./documents folder.
+- Technical, Functional and Management documentation should be in their own dedicated folder in a ./documents folder.
 - Images should be in an ./image subfolder from where they are called.
 - GitHub branches should be named in kebab-case.
-
 
 ### On Bubble
 
@@ -186,23 +237,3 @@ The goal is to avoid vague names such as `workflow1` or `popupLogic`.
 
 ---
 
-
-
-
-
-<br>
-more details -> manech intermarché
-
-
-
-maybe exterior document for the conventions https://github.com/algosup/2023-2024-project-4-sportshield-team-8/blob/main/documents/technicalSpecifications/technicalSpecifications.md#conventions
-take exaple from this 
- the part about coding would be potential conventions on bubbbble. 
-
-> [!NOTE]
-> test <br>
-
-
-
-
-image + description missing for attributes
