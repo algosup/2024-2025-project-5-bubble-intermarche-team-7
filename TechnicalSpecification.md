@@ -19,9 +19,10 @@
     2.6.1 [Wine Card](#261-wine-card)  
     2.6.2 [Cheese Card](#262-cheese-card)  
     2.6.3 [Dish Card](#263-dish-card)  
-    2.6.4 [Favorites Logic](#264-favorites-logic)
-    
-    2.7 [Language Handling](#27-language-handling)
+    2.6.4 [Favorites Logic](#264-favorites-logic)  
+     
+    2.7 [Language Handling](#27-language-handling)   
+    2.8 [Installed Plugins](#28-installed-plugins)  
 
 
 3. [Data Base Structure](#3-data-base-structure)  
@@ -168,6 +169,17 @@ Language preferences are handled manually using a combination of custom states a
 - English is used as the default fallback if no match is found.
 
 ----
+
+### 2.8 Installed Plugins
+
+| Plugin Name                          | Purpose                                                                 |
+|-------------------------------------|-------------------------------------------------------------------------|
+| Google Material Icons               | Used to display standard icons such as favorites (heart), search, etc. |
+| Orchestra (Repeating Group Addon)   | Enables advanced control over Repeating Group items (e.g., syncing UI).|
+| Progress Bar                        | Used for the price slider in the Profile page.                         |
+| Toolbox                             | Allows for custom JavaScript expressions.|
+
+---
 
 ## 3. Data Base Structure
 
