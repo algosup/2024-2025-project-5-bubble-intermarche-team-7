@@ -71,13 +71,69 @@ The planned pages include:
 
 ### 2.2 Reusable Elements
 
-To keep the project modular and easy to maintain, several repeating parts of the UI will be built as reusable elements. These components will be used across multiple pages to ensure consistency and avoid duplicating logic or design. They’ll handle features such as navigations bars, cheese and wine cards and product details. 
+To keep the project modular and easy to maintain, several parts of the UI have been implemented as Reusable Elements. These are used across multiple pages to ensure consistency, avoid logic duplication, and simplify updates.
+
+The following elements are implemented as reusables:
+
+- `TopNavbar` and `BottomNavbar`  
+  Global navigation components adapted for desktop and mobile breakpoints.
+
+- `wineCards`, `cheeseCards`, `dishRowCards`  
+  Dedicated product card components displaying wine, cheese, or dish items dynamically. Each is tied to a repeating group and styled consistently.
+
+- `SearchBar` and `SearchResults`  
+  A reusable combination used to perform searches and display autocomplete results in real-time.
+
+- `LanguageDropdown`  
+  Handles language selection across the app. Connected to Option Sets and custom states to dynamically switch all translatable UI elements.
+
+Each of these reusables is configured for responsiveness and contains its own internal logic (e.g. favorite toggle, filters). 
 
 ---
 
 ### 2.3 Workflows
 
-Workflows will handle all user interactions and app logic such as navigation, filtering, or showing/hiding elements. Each workflow must follow the naming convention. Complex logic must be broken down into multiple workflows when necessary, to keep everything clear and easy to debug.
+Workflows handle all interactions and logic within the application — from navigation and filtering to dynamic content updates and UI state changes.
+
+To keep workflows clean, readable, and easy to debug:
+
+- Complex logic is broken down into smaller workflows.
+- Each workflow follows a camelCase naming convention: `eventActionResult`
+- Redundant steps are avoided by reusing actions wherever possible (e.g. conditional toggles).
+
+#### 2.3.1 Workflow Categories
+
+The application groups workflows into several key categories:
+
+- Navigation
+  - Example: `buttonClickGoToProfile` → Navigates to the profile page
+  - Back buttons and in-app links also use conditional redirects if needed
+
+- Search & Filtering
+  - Example: `searchBarInputUpdateResults` → Filters a repeating group based on user input
+  - Works in tandem with custom states to preserve selected filters
+
+- Favorites Management
+  - Example: `heartClickAddToFavorites` / `heartClickRemoveFromFavorites`
+  - Updates the `Current User`’s list of favorite products
+  - Favorites are toggled directly in reusable card components
+
+- Language Switching
+  - Example: `dropdownLanguageChangeUpdateText`
+  - Stores the selected language in a custom state or user field
+  - Triggers dynamic re-rendering of all translatable text
+
+- Custom State Updates
+  - Example: `dropdownSelectSetCategoryState`
+  - Updates custom state values for filtering, UI display, or content visibility
+  - Often paired with a final “Apply” button to trigger the actual data source update
+
+#### 2.3.2 Best Practices
+
+- Each workflow is labeled clearly to reflect its purpose and the UI element it’s tied to.
+- Conditional logic (`Only when...`) is used to prevent unnecessary executions.
+- Reusables contain self-contained workflows to reduce page-level clutter.
+- All workflows are reviewed for side effects when updating multiple data sources or UI elements.
 
 ---
  
@@ -179,6 +235,39 @@ Language preferences are handled manually using a combination of custom states a
 | Progress Bar                        | Used for the price slider in the Profile page.                         |
 | Toolbox                             | Allows for custom JavaScript expressions.|
 
+---
+
+### 2.9 Offline User Experience
+
+This section outlines how the application behaves when the user has no internet connection. The goal is to ensure essential features remain accessible and the user experience is not disrupted unnecessarily.
+
+#### 2.9.1 Feature Availability
+
+| Feature                     | Online | Offline | Notes |
+|----------------------------|--------|---------|-------|
+| Search (popular items)     | ✅     | ✅      | Limited to cached items |
+| Search (full database)     | ✅     | ❌      | Requires online access |
+| Recipe categories          | ✅     | ❌      | Not cached |
+| Product recommendations    | ✅     | ✅      | Cached from recent sessions |
+| Favorites (view/manage)    | ✅     | ✅      | Stored in local storage |
+| Product details            | ✅     | ✅      | Partial display, some images may be missing |
+| Profile settings           | ✅     | ✅      | Changes saved locally and synced later |
+| Language switching         | ✅     | ✅      | Option sets are cached after initial load |
+
+#### 2.9.2 Offline Indicators and Behavior
+
+- An offline status banner is displayed when the app detects a loss of connection.
+- Pages or actions that require online data are disabled with a tooltip or message explaining their unavailability.
+- Cached content displays a note such as "Content last updated on [date]" if applicable.
+
+#### 2.9.3 Local Storage and Syncing
+
+- Favorites and user preferences are stored using Bubble’s built-in local storage mechanism.
+- The most frequently accessed product data is cached and used for display during offline sessions.
+- Upon reconnection:
+  - Any profile changes made offline are synced automatically.
+  - Favorites are reconciled with the server.
+  - Cached content is refreshed in the background.
 ---
 
 ## 3. Data Base Structure
@@ -337,3 +426,20 @@ M --> P["Display matching cheeses"]
 %% Optional: From wine/cheese cards
 O --> Q["Add/remove favorites"]
 P --> R["Add/remove favorites"]
+```
+
+## Glossary
+
+| Term                  | Definition                                                                 |
+|-----------------------|----------------------------------------------------------------------------|
+| **Bubble**            | No-code platform used to build the entire application through visual logic. |
+| **Custom State**      | Temporary value stored on an element or page, used to control UI or workflows without saving to the database. |
+| **Repeating Group**   | Element that displays a dynamic list of items based on data source and filters. |
+| **Workflow**          | Sequence of actions triggered by an event like a button click or page load. |
+| **Option Set**        | Predefined list of values used for filtering, tagging, or displaying dynamic content. |
+| **Reusable Element**  | UI component reused across pages (e.g., navbar, product card) for consistency. |
+| **Responsive Engine** | Layout system in Bubble that adapts elements based on screen size. |
+| **Toolbox Plugin**    | Plugin that enables use of custom JavaScript inside Bubble workflows. |
+| **localStorage**      | Browser-based storage used to retain values like selected language across sessions. |
+| **Material Icons**    | Icon set used in the app for actions such as favoriting or searching. |
+| **Orchestra Plugin**  | Plugin that improves control over Repeating Group item updates and interaction. |
