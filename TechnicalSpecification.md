@@ -20,10 +20,13 @@
     2.6.2 [Cheese Card](#262-cheese-card)  
     2.6.3 [Dish Card](#263-dish-card)  
     2.6.4 [Favorites Logic](#264-favorites-logic)  
-     
-    2.7 [Language Handling](#27-language-handling)   
-    2.8 [Installed Plugins](#28-installed-plugins)  
-
+   2.7 [Language Handling](#27-language-handling)  
+   2.8 [Installed Plugins](#28-installed-plugins)  
+   2.9 [Offline User Experience](#29-offline-user-experience)  
+   2.10 [Testing Strategy](#210-testing-strategy)  
+   2.11 [Data Handling & GDPR Compliance](#211-data-handling--gdpr-compliance)  
+   2.12 [Performance Expectations](#212-performance-expectations)  
+   2.13 [Deployment & Future Improvements](#213-deployment--future-improvements)
 
 3. [Data Base Structure](#3-data-base-structure)  
    3.1 [Products](#31-products)  
@@ -268,7 +271,69 @@ This section outlines how the application behaves when the user has no internet 
   - Any profile changes made offline are synced automatically.
   - Favorites are reconciled with the server.
   - Cached content is refreshed in the background.
+
 ---
+
+### 2.10 Testing Strategy
+
+A dedicated Quality Assurance phase will be carried out to validate key features, including:
+- Offline performance and fallback states
+- Filtering and recommendation accuracy
+- Proper handling of empty states and errors
+
+QA documentation will be added to this repository before the final project delivery.
+
+---
+
+### 2.11 Data Handling & GDPR Compliance
+
+This application does **not collect or store any personal user data**.
+
+All features — including favorites, dietary preferences, and search history — are handled **locally** within the browser or app session. No server-side storage or user accounts are implemented at this stage.
+
+Nonetheless, the following precautions ensure compliance with **GDPR** and general data protection practices:
+
+- No personal identifiers (name, email, IP address) are stored or transmitted.
+- All locally stored preferences (e.g., allergies, budget) remain confined to the device and are lost upon uninstall.
+- If analytics or tracking features are introduced in the future, a consent mechanism will be implemented upfront.
+
+This ensures the app meets current data protection expectations while allowing future evolutions if persistent user accounts are needed.
+
+---
+
+### 2.12 Performance Expectations
+
+The app must feel responsive and smooth across all supported devices. Key performance goals include:
+
+- **Initial load time**: Homepage should load in under **2 seconds** on a 4G connection.
+- **Screen transitions**: Navigation between screens (e.g., homepage → product page) must complete in under **1 second**.
+- **Offline access**: Cached content (e.g., wine & cheese lists, favorites) should load **instantly**, with no visible delay.
+- **Search input**: Real-time suggestions should appear within **300ms** of typing.
+
+These thresholds help maintain a frictionless user experience, even in-store under weak connections. Performance testing should simulate low-to-mid-tier mobile devices, as the majority of the target audience will use mid-range smartphones.
+
+---
+
+### 2.13 Deployment & Future Improvements
+
+#### Deployment Strategy
+The application will be deployed as a Progressive Web App (PWA), optimized for mobile use first while also fully responsive and adapted to tablet and desktop screens. It will be accessible via a QR code displayed in-store or through a direct URL. No app store installation is required, ensuring immediate access.
+
+- **Initial deployment**: Hosted on Bubble.io under a custom domain provided by the client.
+- **In-store promotion**: Through flyers, shelf signage, and checkout QR displays.
+- **Maintenance & monitoring**: Bubble’s native tools will be used to monitor uptime, usage patterns, and apply updates seamlessly.
+
+#### Future Improvements
+The current version is designed to meet MVP expectations. However, these additions are already considered for future releases:
+
+- Add user accounts for syncing preferences across devices.
+- Enable reverse pairing logic (starting from a wine or cheese).
+- Introduce image caching for richer offline support.
+- Connect to real-time product inventory instead of static CSV files.
+- Expand multilingual support for additional tourist audiences (e.g., German, Dutch).
+- Introduce location-aware features (e.g., product map inside the store).
+
+All enhancements will depend on feedbacks, store needs, and user adoption.
 
 ## 3. Data Base Structure
 
@@ -386,7 +451,9 @@ Where:
 
 The goal is to avoid vague names such as `workflow1` or `popupLogic`. 
 
-
+To improve clarity:
+- Workflow names should stay under 25 characters whenever possible.
+- Recursive workflows or expressions should be avoided if an iterative or flat alternative exists.
 
 ## 5. Navigation Flow
 
