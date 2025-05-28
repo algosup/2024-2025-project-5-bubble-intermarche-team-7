@@ -11,6 +11,10 @@ This project was commissioned by the Intermarché of Saint-Rémy-de-Provence. Th
 
 ### Requirements
 
+<!-- The app will be built entirely using Bubble and will rely on its no-code visual tools to deliver all the expected features.  -->
+
+Search, filters, and dynamic recommendations will be handled through a combination of search boxes, dropdowns, and custom states. Repeating groups will be used to display filtered lists of products based on user input and preferences. Option sets will be used for tags like allergies, dietary restrictions, or taste profiles, which makes filtering both more reliable and easier to update. Reusable elements will be used for anything that appears across several pages, like navigation bars or product cards, to keep things clean and consistent.
+
 
 
 
@@ -23,11 +27,10 @@ The planned pages include:
 
 - `index`: Homepage where users are welcomed and guided to begin the process. It contains the primary entry point for selecting a dish and starting the recommendation flow.
 - `dish_lists`: Displays wine and cheese suggestions, grouped by category.
-- `recommendation`: Shows detailed product matches for the selected dish.
 - `favorite`: Lets users view and manage the products they labelled as favorite.
 - `profile`: Allows users to update preferences such as dietary restrictions, allergies, and language.
 - `onboarding`: Guides new users through initial preference setup.
-- `reset_pw`: For password recovery and reset.
+- `404`: This page will appear if the user tries to go to an unexisting page or destination. (cleaner version needed)
 
 ---
 
@@ -37,43 +40,74 @@ To keep the project modular and easy to maintain, several repeating parts of the
 
 ---
 
-### Workflows (?)
+### Workflows
+
+Workflows will handle all user interactions and app logic such as navigation, filtering, or showing/hiding elements. Each workflow must follow the naming convention. Complex logic must be broken down into multiple workflows when necessary, to keep everything clear and easy to debug.
 
 ---
 
-### Custom States (?)
+### Custom States
 
----
-
-### Data Types (?)
-
+Custom states will be used to store temporary values that do not need to be saved to the database, which will be ideal for controlling UI behavior such as toggling elements or, tracking selected filters.  They also should be added directly to the element they control, rather than to the page or unrelated containers. This keeps the logic easy to understand, limits unwanted side effects, and makes future changes easier.
 ---
 
 ### Styles
 
-To ensure consistency and maintanability in the design, all UI components will be styled using Bubble's built-in Styles page.  
-No inline styles will be used unless required for dynamic conditional logic.
+To ensure consistency and maintanability in the design, all UI components will be styled using Bubble's built-in Styles page. No inline styles will be used unless required for dynamic conditional logic. This will allow us to (if needed) update the entire app theme from one place.
 
 ---
 
+### Data Base Structure
 
-technical requirements -> how will it be done: 
+The app will use a structured data model to store and manage the different types of products (dishes, wines, cheeses), as well as user preferences. The database will be designed to allow fast filtering, personalized suggestions, and compatibility with features such as favorites, allergy filters, or local product highlighting.
 
-system architecture (? bubble check bubble team account)
+#### Products 
 
-performance goal?
+This type will be used for every physical product — dish, wine, or cheese — displayed in the app. Each entry will include product metadata, pricing, origin, tags for filtering, and store-related info.
 
-harwdware used (irelevant)
+**Name:** Product  
+**Fields:**
+- `name` (text): The product name  
+- `description` (text): Short or detailed product description  
+- `image` (image): Visual used in product cards and detail views  
+- `origin` (text): Region or country of origin (used to highlight local items)  
+- `price` (number): Price in euros  
+- `volume_or_weight` (text): Format such as 75cl or 200g  
+- `price_per_liter_or_kg` (text): Calculated price per standard unit  
+- `type` (ProductType - Option Set): Used to distinguish between dishes, wines, and cheeses  
+- `is_alcohol` (yes / no): Whether the product is alcoholic or not  
+- `is_expert_pick` (yes / no): Used to highlight selected recommendations  
+- `store_location` (text): Indicates where the product can be found in the store  
+- `taste_notes` (List of TasteNote): Fruity, Spicy, Earthy...  
+- `allergy_tags` (List of Allergy): Useful for hiding incompatible products  
+- `diet_tags` (List of DietaryRestriction): Vegan, Vegetarian, etc. 
+- `wine_year` Year of wine production (empty for cheeses). 
+---
 
-details on how will the database work (tbd) <br>
+#### User
+
+Stores user preferences for language, budget, dietary restrictions, and favorites.
+
+| Field               | Type                          | Multiple Entries | Description                                   |
+|--------------------|-------------------------------|------------------|-----------------------------------------------|
+| `first_name`       | text                          | No               | Optional user name for personalization        |
+| `email`            | text                          | No               | Optional email (used only for future exports) |
+| `language`         | Languages (Option Set)        | No               | Preferred language for UI                     |
+| `budget_per_bottle`| number                        | No               | Max budget preference for wine                |
+| `allergies`        | List of Allergy               | Yes              | Active allergy preferences                    |
+| `diet_preferences` | List of DietaryRestriction    | Yes              | Vegan, Vegetarian, etc.                       |
+| `favorites`        | List of Products              | Yes              | User-saved products                           |
+| `search_history`   | List of text or Dishes        | Yes              | Last searched dishes (max 6)                  |
+
+--- 
 
 
 
 
-On bubble:
 
-how was figma was/willbe used + implemented? (tbd with func/pierre)
-bubble screenshots/diagrams (flow charts, will be done when available)
+
+
+diagrams missing (flow charts)
 
 ## Conventions
 
@@ -156,29 +190,6 @@ The goal is to avoid vague names such as `workflow1` or `popupLogic`.
 
 
 
-data type example:
-
-**Name:** Product  
-**Fields:**  
-- name (text): The product name  
-- category (option set): 'Wine' or 'Cheese'  
-- image (image): Product image  
-- origin (text): Region or country  
-- pairing_tags (list of texts): Tags for dish pairing logic  
-- price (number): In euros  
-- isLocal (yes/no): Highlights local products  
-- TBD (TBD): Link to a similar product
-- 
-
-
-
-
-
-technical architecture
-    - software choices? (figma)
-    - ? 
-
-
 <br>
 more details -> manech intermarché
 
@@ -194,3 +205,4 @@ take exaple from this
 
 
 
+image + description missing for attributes
