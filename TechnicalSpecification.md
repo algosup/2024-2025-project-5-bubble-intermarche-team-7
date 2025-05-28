@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project was commissioned by the Intermarché of Saint-Rémy-de-Provence. The goal is to help the customers to choose which wine and cheese would be the best fit for the dish they plan to cook. This application will be made using Bubble and will focus on delivering an intuitive user experience, highlighting local products, and showcasing well-matched options at different price points.
+This project was commissioned by the Intermarché of Saint-Rémy-de-Provence. The goal is to help the customers to choose which wine and cheese would be the best fit for the dish they plan to cook. This application is being made on Bubble and will focus on delivering an intuitive user experience, highlighting local products, and showing well-matched options at different price points.
 
 ---
 
